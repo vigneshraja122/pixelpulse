@@ -62,7 +62,7 @@ const LivePrices: React.FC = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search by name or symbol..."
-                        className="w-full md:w-72 px-4 py-2 rounded-lg border shadow-sm"
+                        className="w-full md:w-72 px-4 py-2 rounded-lg border shadow-sm placeholder-gray-500"
                     />
 
 
