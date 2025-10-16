@@ -51,9 +51,8 @@ const LivePrices: React.FC = () => {
 
     return (
         <motion.section >
-            <div className="max-w-6xl mx-auto">
+            <div className="w-full mx-auto bg-white p-2">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Live Prices</h2>
-                <p className="text-sm text-gray-600 mb-6">Data from CoinGecko API — updates on page load.</p>
 
 
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
