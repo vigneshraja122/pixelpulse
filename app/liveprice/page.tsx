@@ -37,8 +37,6 @@ const LivePrices: React.FC = () => {
                 if (isMounted) setLoading(false);
             }
         };
-
-
         fetchCoins();
         return () => { isMounted = false };
     }, []);
@@ -50,25 +48,20 @@ const LivePrices: React.FC = () => {
     );
 
     return (
-        <motion.section >
+        <motion.section className='bg-white'>
             <div className="w-full mx-auto bg-white p-2">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Live Prices</h2>
-
-
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
                     <input
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search by name or symbol..."
-                        className="w-full md:w-72 px-4 py-2 rounded-lg border shadow-sm placeholder-gray-500"
+                        className="w-full md:w-72 px-4 py-2 rounded-lg border shadow-sm placeholder-gray-500 text-black focus:text-black focus-visible:text-black"
+                          style={{ color: 'black' }}
                     />
-
-
                     <div className="text-sm text-gray-500">Showing {filtered.length} / {coins.length} coins</div>
                 </div>
-
-
                 {loading ? (
                     <div className="text-center py-12 text-gray-500">Loading...</div>
                 ) : error ? (

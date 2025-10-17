@@ -30,6 +30,7 @@ const LivePrices: React.FC = () => {
                 const res = await axios.get<Coin[]>(
                     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false'
                 );
+                   console.log(res.data)
                 if (isMounted) setCoins(res.data);
             } catch (err) {
                 if (isMounted) setError('Failed to fetch coin data');
@@ -37,21 +38,16 @@ const LivePrices: React.FC = () => {
                 if (isMounted) setLoading(false);
             }
         };
-
-
         fetchCoins();
         return () => { isMounted = false };
     }, []);
-
-
     const filtered = coins.filter(c =>
         c.name.toLowerCase().includes(query.toLowerCase()) ||
         c.symbol.toLowerCase().includes(query.toLowerCase())
     );
-
     return (
-        <motion.section >
-            <div className="max-w-6xl mx-auto">
+        <motion.section className='bg-white'>
+            <div className="max-w-6xl mx-auto bg-white">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Live Prices</h2>
                 <p className="text-sm text-gray-600 mb-6">Data from CoinGecko API — updates on page load.</p>
 
@@ -62,14 +58,10 @@ const LivePrices: React.FC = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search by name or symbol..."
-                        className="w-full md:w-72 px-4 py-2 rounded-lg border shadow-sm placeholder-gray-500"
+                        className="w-full md:w-72 px-4 py-2 rounded-lg border shadow-sm placeholder-gray-500 text-black focus:text-black focus-visible:text-black"
                     />
-
-
                     <div className="text-sm text-gray-500">Showing {filtered.length} / {coins.length} coins</div>
                 </div>
-
-
                 {loading ? (
                     <div className="text-center py-12 text-gray-500">Loading...</div>
                 ) : error ? (
