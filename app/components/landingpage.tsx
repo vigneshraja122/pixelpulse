@@ -87,7 +87,7 @@ const LandingPage = () => {
                 />
             </section> */}
             <HeroSection />
-            <section
+            {/* <section
                 ref={heroRef}
                 className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-t from-[#439EBB] to-[#F95DCD]"
                 style={{
@@ -409,7 +409,7 @@ const LandingPage = () => {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
