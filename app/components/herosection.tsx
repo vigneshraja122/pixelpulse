@@ -20,8 +20,11 @@ export default function HeroSection() {
   const newBoyRef = useRef<HTMLImageElement>(null);
   const newLeftRef = useRef<HTMLDivElement>(null);
   const newRightRef = useRef<HTMLDivElement>(null);
+  const twinAvatarRef = useRef<HTMLImageElement>(null);
+  const exclusiveLeftTextRef = useRef<HTMLParagraphElement>(null);
+  const exclusiveRightTextRef = useRef<HTMLParagraphElement>(null);
 
-  const [currentSection, setCurrentSection] = useState<1 | 2 | 3 | 4 >(1);
+  const [currentSection, setCurrentSection] = useState<1 | 2 | 3 | 4 | 5>(1);
 
   // Section content configuration
   const sectionData = {
@@ -42,7 +45,7 @@ export default function HeroSection() {
       description: null
     },
     5: {
-      title: null,
+      title: "Exclusive Offers",
       description: null
     }
   };
@@ -55,20 +58,22 @@ export default function HeroSection() {
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
-          end: '+=1400',
+          end: '+=2000',
           scrub: 1,
           pin: true,
           onUpdate: ({ progress }) => {
             // Update sections based on progress
-            if (progress <= 0.15) {
+            if (progress <= 0.12) {
               setCurrentSection(1);
-            } else if (progress > 0.15 && progress <= 0.35) {
+            } else if (progress > 0.12 && progress <= 0.28) {
               setCurrentSection(2);
-            } else if (progress > 0.35 && progress <= 0.60) {
+            } else if (progress > 0.28 && progress <= 0.48) {
               setCurrentSection(3);
-            } else if (progress > 0.60 && progress <= 0.90) {
+            } else if (progress > 0.48 && progress <= 0.70) {
               setCurrentSection(4);
-            } 
+            } else if (progress > 0.70) {
+              setCurrentSection(5);
+            }
           },
         },
       });
@@ -137,6 +142,60 @@ export default function HeroSection() {
           { x: '100%', opacity: 0 },
           { x: 0, opacity: 1, duration: 1.2 },
           3.2
+        )
+        
+        // 🔹 NEW SECTION 5: Exclusive Offers
+        .to(
+          [newBoyRef.current, newLeftRef.current, newRightRef.current, titleRef.current],
+          { opacity: 0, duration: 0.8 },
+          4.5
+        )
+        
+        // Hide bottom circle and bring left/right circles to center with intersection
+        .to(bottomCircleRef.current, { opacity: 0, duration: 0.5 }, 4.5)
+        .to(leftCircleRef.current, { 
+          x: '25vw', 
+          y: '0', 
+          opacity: 1, 
+          scale: 1, 
+          duration: 1 
+        }, 4.8)
+        .to(rightCircleRef.current, { 
+          x: '-25vw', 
+          y: '0', 
+          opacity: 1, 
+          scale: 1, 
+          duration: 1 
+        }, 4.8)
+        
+        // Change title to "Exclusive Offers"
+        .add(() => {
+          if (titleRef.current) {
+            titleRef.current.innerHTML = 'Exclusive Offers';
+          }
+        }, 5)
+        .to(titleRef.current, { opacity: 1, duration: 0.8 }, 5)
+        
+        // Bring in twin avatar image
+        .fromTo(
+          twinAvatarRef.current,
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: 1.2 },
+          5.2
+        )
+        
+        // Bring in left and right texts with circles
+        .fromTo(
+          exclusiveLeftTextRef.current,
+          { x: '-100%', opacity: 0 },
+          { x: 0, opacity: 1, duration: 1.2 },
+          5.4
+        )
+        .fromTo(
+          exclusiveRightTextRef.current,
+          { x: '100%', opacity: 0 },
+          { x: 0, opacity: 1, duration: 1.2 },
+          5.4
         );
     }, heroRef);
 
@@ -195,14 +254,14 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-col items-center justify-center text-center mb-52 transition-all duration-700">
         {currentSection === 2 ? (
           <div className="relative z-10 flex flex-col items-center justify-center text-center">
-            <h1 className="fade-up text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight mb-6">
+            <h1 className="fade-up text-xl md:text-3xl lg:text-4xl font-serif font-bold text-white leading-tight mb-6">
               Welcome to<br />
               <span className="bg-gradient-to-r from-white via-pink-100 to-purple-100 bg-clip-text text-transparent">
                 PixelPulse
               </span>
             </h1>
 
-            <p className="fade-up text-xl font-serif md:text-2xl text-white/90 mx-auto tracking-wide max-w-xl">
+            <p className="fade-up text-xl font-serif md:text-2xl text-white/90 mx-auto tracking-wide max-w-2xl">
               Immerse Yourself in the Ultimate Gaming Experience
             </p>
           </div>
@@ -211,7 +270,7 @@ export default function HeroSection() {
             {currentData.title && (
               <h1
                 ref={titleRef}
-                className="text-xl md:text-2xl lg:text-5xl font-bold font-serif text-white leading-tight mb-16 transition-all duration-700"
+                className="text-xl md:text-2xl lg:text-4xl font-bold font-serif text-white leading-tight mb-6 transition-all duration-700"
                 dangerouslySetInnerHTML={{
                   __html: currentData.title === "Welcome to PixelPulse" 
                     ? 'Welcome to<br/><span class="bg-gradient-to-r from-white via-pink-100 to-purple-100 bg-clip-text text-transparent">PixelPulse</span>'
@@ -220,7 +279,7 @@ export default function HeroSection() {
               />
             )}
             {currentData.description && (
-              <p ref={descRef} className="text-lg md:text-xl text-white/90 max-w-xl mx-auto font-serif">
+              <p ref={descRef} className="text-lg md:text-xl text-white/90 max-w-xl mx-auto font-serif ">
                 {currentData.description}
               </p>
             )}
@@ -235,14 +294,14 @@ export default function HeroSection() {
 
       <div
         ref={bottomCircleRef}
-        className="absolute bottom-0 left-1/2 w-[400px] h-[400px] rounded-full bg-gradient-to-b from-[#FFFFFF] via-pink-700 to-purple-600 shadow-green-50 shadow-2xl opacity-20"
+        className="absolute bottom-0 left-1/2 w-[350px] h-[350px] rounded-full bg-gradient-to-b from-[#FFFFFF] via-pink-700 to-purple-600 shadow-green-50 shadow-2xl opacity-20"
         style={{ transform: 'translateX(-50%) translateY(75%)' }}
       />
 
       <img
         ref={boyImgRef}
         src="/Mask group.svg"
-        className="absolute opacity-0 bottom-0 left-1/2 -translate-x-1/2 w-80 md:w-96 lg:w-[500px] object-contain z-10"
+        className="absolute opacity-0 bottom-0 left-1/2 -translate-x-1/2 w-80 md:w-96 lg:w-[400px] object-contain z-10"
         alt="Boy Image"
       />
 
@@ -251,6 +310,14 @@ export default function HeroSection() {
         src="/Cyberpunk warrior in urban scenery.svg"
         className="absolute opacity-0 bottom-0 left-1/2 -translate-x-1/2 w-80 md:w-96 lg:w-[800px] object-contain z-10"
         alt="Cyberpunk Warrior"
+      />
+
+      {/* NEW: Twin Avatar Image for Section 5 */}
+      <img
+        ref={twinAvatarRef}
+        src="/Illustrated rendering of twin avatar.svg"
+        className="absolute opacity-0 bottom-0 left-1/2 -translate-x-1/2 w-80 md:w-96 lg:w-[600px] object-contain z-10"
+        alt="Twin Avatar"
       />
 
       <div className="absolute bottom-[25%] left-1/2 -translate-x-1/2 flex flex-col md:flex-row items-center justify-center gap-80 max-w-5xl text-white text-center z-20">
@@ -286,6 +353,25 @@ export default function HeroSection() {
           <span>Join Now</span>
           <span>→</span>
         </button>
+      </div>
+
+      {/* NEW: Exclusive Offers Section Texts */}
+      <div
+        ref={exclusiveLeftTextRef}
+        className="absolute left-20 top-1/2 -translate-y-1/2 max-w-xs text-white z-10 opacity-0"
+      >
+        <p className="text-lg leading-relaxed text-center font-serif">
+          Unlock special offers and promotions available only to PixelPulse members.
+        </p>
+      </div>
+
+      <div
+        ref={exclusiveRightTextRef}
+        className="absolute right-20 top-1/2 -translate-y-1/2 max-w-xs text-white z-10 opacity-0"
+      >
+        <p className="text-lg leading-relaxed text-center font-serif">
+          Get access to exclusive content, in-game rewards, and VIP perks that take your gaming experience to the next level.
+        </p>
       </div>
     </section>
   );
