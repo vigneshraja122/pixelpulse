@@ -397,7 +397,7 @@ export default function HeroSection() {
       {/* SECTION 5 TEXT - Mobile: centered, Laptop: original sides */}
       <div
         ref={exclusiveLeftTextRef}
-        className="absolute left-[35%] -translate-x-2/9 md:left-[38%] lg:left-20 lg:translate-x-0 top-[20%] sm:top-[18%] md:top-[18%] lg:top-1/2 lg:-translate-y-1/2 max-w-[340px] sm:max-w-[340px] lg:max-w-xs text-white z-10 opacity-0 px-6 text-center"
+        className="absolute left-[30%] -translate-x-2/9 md:left-[38%] lg:left-20 lg:translate-x-0 top-[20%] sm:top-[18%] md:top-[18%] lg:top-1/2 lg:-translate-y-1/2 max-w-[340px] sm:max-w-[340px] lg:max-w-xs text-white z-10 opacity-0 px-6 text-center"
       >
         <p className="text-sm sm:text-base md:text-lg lg:text-lg leading-relaxed text-center font-serif mb-1 sm:mb-4 lg:mb-6">
           Unlock special offers and promotions available only to PixelPulse members.
