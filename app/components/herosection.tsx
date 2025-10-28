@@ -266,7 +266,7 @@ export default function HeroSection() {
         </button>
 
         {/* Mobile Menu */}
-        <div className={`absolute top-full left-0 right-0 bg-gradient-to-b from-purple-900/95 to-pink-900/95 backdrop-blur-lg lg:hidden transition-all duration-300 ${menuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}>
+        <div className={`absolute top-full left-0 right-0 bg-transparent backdrop-blur-lg lg:hidden transition-all duration-300 ${menuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}>
           <div className="flex flex-col items-center gap-4 py-6 px-4">
             <a href="/liveprice" className="text-white font-semibold hover:text-pink-200 transition font-serif text-base w-full text-center py-2" onClick={() => setMenuOpen(false)}>Home</a>
             <a href="#" className="text-white/80 hover:text-white font-serif transition text-base w-full text-center py-2" onClick={() => setMenuOpen(false)}>Games</a>
